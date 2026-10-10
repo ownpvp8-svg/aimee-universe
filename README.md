@@ -1,2 +1,0 @@
-# aimee-universe
-UNIVERSE

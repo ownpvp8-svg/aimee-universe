@@ -1,0 +1,650 @@
+# aimee-universe
+UNIVERSE
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070d20">
+<title>For Aimee, Under the Stars ✦</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+
+:root {
+  --night: #070d20;
+  --blue: #111c3c;
+  --light: #e7eaff;
+  --muted: #9ba8ca;
+  --gold: #f5dfad;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 50% 5%, #192950 0%, transparent 48%),
+    radial-gradient(ellipse at 10% 70%, #101c3c 0%, transparent 50%),
+    var(--night);
+  color: var(--light);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+button { font: inherit; }
+
+#sky {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.star-dot {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  animation: twinkle var(--duration) ease-in-out infinite alternate;
+  animation-delay: var(--delay);
+}
+
+@keyframes twinkle {
+  from { opacity: .18; transform: scale(.7); }
+  to { opacity: .95; transform: scale(1.25); }
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+  min-height: 100svh;
+}
+
+.topline {
+  position: absolute;
+  top: 25px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: #9daed5;
+  text-transform: uppercase;
+}
+
+.screen {
+  min-height: 100svh;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 23px 50px;
+  text-align: center;
+  animation: appear 1s ease both;
+}
+
+.screen.active { display: flex; }
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.eyebrow {
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 23px;
+}
+
+h1, h2, .letter-text {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 400;
+}
+
+h1 {
+  font-size: clamp(42px, 10vw, 76px);
+  line-height: 1.12;
+  letter-spacing: -2px;
+  margin: 0;
+}
+
+h1 em, h2 em {
+  color: var(--gold);
+  font-weight: 400;
+}
+
+.intro {
+  max-width: 330px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.9;
+  margin: 23px auto 32px;
+}
+
+.moon-wrap {
+  width: 130px;
+  height: 130px;
+  margin: 0 auto 33px;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.moon-glow {
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: #c8d8ff;
+  opacity: .10;
+  filter: blur(27px);
+  animation: breathe 4s ease-in-out infinite alternate;
+}
+
+.moon {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #fff9e7, #e7dfc7 58%, #a9b8d7);
+  box-shadow: 0 0 30px #c8d8ff30, 0 0 85px #a7bfff1c;
+  position: relative;
+  overflow: hidden;
+}
+
+.moon::before, .moon::after {
+  content: "";
+  position: absolute;
+  background: #b7bfd0;
+  opacity: .27;
+  border-radius: 50%;
+}
+
+.moon::before { width: 16px; height: 16px; top: 16px; left: 18px; }
+.moon::after { width: 10px; height: 10px; bottom: 17px; right: 17px; }
+
+@keyframes breathe {
+  from { transform: scale(.85); opacity: .07; }
+  to { transform: scale(1.15); opacity: .17; }
+}
+
+.primary {
+  border: 1px solid #c4cce65c;
+  background: #dce5ff0c;
+  color: var(--light);
+  border-radius: 40px;
+  padding: 15px 24px;
+  cursor: pointer;
+  font-size: 12px;
+  letter-spacing: 1.3px;
+  transition: .25s ease;
+}
+
+.primary:hover {
+  background: #e3eaff19;
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+.primary:focus-visible, .star-button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 5px;
+}
+
+.hint {
+  margin-top: 19px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #7382a9;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-size: clamp(32px, 8vw, 48px);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.description {
+  max-width: 310px;
+  font-size: 13px;
+  line-height: 1.9;
+  color: var(--muted);
+  margin: 17px auto 0;
+}
+
+.constellation {
+  width: min(100%, 360px);
+  height: 290px;
+  position: relative;
+  margin: 20px auto 0;
+}
+
+.constellation svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.constellation line {
+  stroke: #8ca4e4;
+  stroke-width: .8;
+  stroke-dasharray: 3 7;
+  opacity: .36;
+}
+
+.star-button {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border: 0;
+  background: transparent;
+  color: var(--gold);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  transition: .3s;
+}
+
+.star-button .symbol {
+  font-size: 29px;
+  text-shadow: 0 0 18px #dbe4ffb0;
+  animation: starPulse 2.5s ease-in-out infinite alternate;
+}
+
+.star-button small {
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: #b4c0e1;
+}
+
+.star-button:hover { transform: translate(-50%, -50%) scale(1.12); }
+
+.star-button.found .symbol {
+  color: #fff5d6;
+  text-shadow: 0 0 25px #ffe6a0;
+}
+
+.star-button.found small { color: var(--gold); }
+
+@keyframes starPulse {
+  from { opacity: .65; }
+  to { opacity: 1; }
+}
+
+.star-button:nth-of-type(1) { left: 23%; top: 25%; }
+.star-button:nth-of-type(2) { left: 75%; top: 48%; }
+.star-button:nth-of-type(3) { left: 35%; top: 77%; }
+
+.progress {
+  margin-top: 0;
+  color: #8595bb;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.progress span { color: var(--gold); }
+
+.message-card {
+  width: min(100%, 355px);
+  padding: 25px 23px;
+  border: 1px solid #b7c8ff25;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #ffffff09, #a8bbff04);
+  margin: 22px auto;
+  animation: appear .45s ease both;
+}
+
+.message-card .little-star {
+  font-size: 21px;
+  color: var(--gold);
+}
+
+.message-card p {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px;
+  line-height: 1.65;
+  margin: 13px 0 0;
+}
+
+.message-card .sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-top: 12px;
+}
+
+#message-area:empty { display: none; }
+
+.final-moon {
+  width: 82px;
+  height: 82px;
+  margin: 0 auto 28px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #fff9e7, #c7d2e8);
+  box-shadow: 0 0 45px #d7e0ff3d, 0 0 120px #b4c9ff1e;
+  animation: breathe 4s ease-in-out infinite alternate;
+}
+
+.letter {
+  width: min(100%, 440px);
+  text-align: left;
+  margin: 28px auto 0;
+  padding: 27px 24px;
+  border: 1px solid #b9c8ed2b;
+  border-radius: 3px;
+  background: linear-gradient(150deg, #e7e7ed0c, #a5b9ef05);
+  box-shadow: 0 18px 80px #00000012;
+}
+
+.letter-top {
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 25px;
+}
+
+.letter-text {
+  font-size: 17px;
+  line-height: 1.95;
+  color: #e0e5f6;
+  white-space: pre-line;
+}
+
+.letter-sign {
+  margin-top: 27px;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: 23px;
+  color: var(--gold);
+}
+
+.final-line {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(25px, 7vw, 39px);
+  line-height: 1.5;
+  margin: 28px auto 12px;
+  max-width: 370px;
+}
+
+.only {
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #aebce0;
+  margin-top: 23px;
+}
+
+.footer-note {
+  margin-top: 40px;
+  font-size: 10px;
+  color: #64749b;
+  letter-spacing: 1px;
+}
+
+#toast {
+  position: fixed;
+  z-index: 5;
+  left: 50%;
+  bottom: 25px;
+  transform: translate(-50%, 15px);
+  width: max-content;
+  max-width: calc(100% - 32px);
+  padding: 12px 17px;
+  border-radius: 12px;
+  border: 1px solid #b7c8ff35;
+  background: #101a33f5;
+  color: #e6ebff;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: .3s;
+}
+
+#toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (max-width: 380px) {
+  .screen { padding-left: 17px; padding-right: 17px; }
+  .constellation { height: 260px; }
+  .star-button { width: 72px; height: 72px; }
+  .letter { padding: 22px 19px; }
+  .letter-text { font-size: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div id="sky" aria-hidden="true"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<main class="page">
+  <div class="topline">A little universe · made for one person</div>
+
+  <!-- FIRST SCREEN -->
+  <section class="screen active" id="welcome">
+    <div class="moon-wrap" aria-hidden="true">
+      <div class="moon-glow"></div>
+      <div class="moon"></div>
+    </div>
+
+    <div class="eyebrow">Somewhere in the universe</div>
+    <h1>Out of all<br>the <em>stars,</em><br>there's you.</h1>
+
+    <p class="intro">
+      There are billions of little lights in this sky.
+      But tonight, I want to show you a few things
+      that remind me of someone special.
+    </p>
+
+    <button class="primary" onclick="goTo('discover')">
+      Come a little closer <span aria-hidden="true"> ↗</span>
+    </button>
+    <div class="hint">A little something for you</div>
+  </section>
+
+  <!-- STAR DISCOVERY SCREEN -->
+  <section class="screen" id="discover">
+    <div class="eyebrow">Your own little constellation</div>
+    <h2>Three little<br><em>things to know.</em></h2>
+    <p class="description">
+      Touch each glowing star. Each one holds a little
+      reminder that I hope you never forget.
+    </p>
+
+    <div class="constellation">
+      <svg viewBox="0 0 360 290" aria-hidden="true">
+        <line x1="83" y1="72" x2="270" y2="139"></line>
+        <line x1="270" y1="139" x2="126" y2="224"></line>
+        <line x1="83" y1="72" x2="126" y2="224"></line>
+      </svg>
+
+      <button class="star-button" id="star1" style="left:23%;top:25%"
+        onclick="revealStar(1)" aria-label="Discover the first star">
+        <span class="symbol">✦</span><small>ONE</small>
+      </button>
+      <button class="star-button" id="star2" style="left:75%;top:48%"
+        onclick="revealStar(2)" aria-label="Discover the second star">
+        <span class="symbol">✧</span><small>TWO</small>
+      </button>
+      <button class="star-button" id="star3" style="left:35%;top:77%"
+        onclick="revealStar(3)" aria-label="Discover the third star">
+        <span class="symbol">✦</span><small>THREE</small>
+      </button>
+    </div>
+
+    <div class="progress" id="progress">
+      Discovered: <span>0</span> of 3
+    </div>
+
+    <div id="message-area" aria-live="polite"></div>
+
+    <button class="primary" id="unlock" style="display:none"
+      onclick="goTo('letter')">
+      There's one more thing... ☾
+    </button>
+    <div class="footer-note">Take your time. This is yours.</div>
+  </section>
+
+  <!-- FINAL LETTER SCREEN -->
+  <section class="screen" id="letter">
+    <div class="final-moon" aria-hidden="true"></div>
+    <div class="eyebrow">A letter from my heart</div>
+    <h2>If I could give<br>you <em>one thing...</em></h2>
+
+    <p class="description">
+      It wouldn't be the moon or the stars.
+      It would be the chance to see yourself
+      the way I see you.
+    </p>
+
+    <div class="letter">
+      <div class="letter-top">Just for you, Aimee ✦</div>
+      <div class="letter-text">I don't know if words will ever be enough to explain how much you mean to me.
+
+But I hope that, even on the days when things feel difficult, you remember that you're someone worth caring about, someone worth choosing, and someone who makes this world feel a little more beautiful just by being in it.
+
+If I could put every good feeling I've ever had into the night sky, I'd want you to look up and know that somewhere, someone is thinking about you with the biggest smile.
+
+You don't have to be perfect. You don't have to do anything special to deserve kindness. Just being you is enough.
+
+And if you ever forget how loved you are, I hope this little corner of the internet reminds you. ♡</div>
+      <div class="letter-sign">Always, with love.</div>
+    </div>
+
+    <div class="final-line">
+      i hope you know that i love you MOMMY ❤️
+    </div>
+
+    <div class="only">✦ For Aimee ONLY ✦</div>
+
+    <div class="footer-note">
+      Out of all the stars, I'm glad this little universe led to you.
+    </div>
+  </section>
+</main>
+
+<script>
+/* Create a sky full of tiny, softly glowing stars. */
+const sky = document.getElementById('sky');
+
+for (let i = 0; i < 115; i++) {
+  const star = document.createElement('span');
+  star.className = 'star-dot';
+  const size = Math.random() * 2 + 0.5;
+
+  star.style.left = Math.random() * 100 + '%';
+  star.style.top = Math.random() * 100 + '%';
+  star.style.width = size + 'px';
+  star.style.height = size + 'px';
+  star.style.setProperty('--duration', (2 + Math.random() * 4) + 's');
+  star.style.setProperty('--delay', (-Math.random() * 5) + 's');
+
+  sky.appendChild(star);
+}
+
+function goTo(id) {
+  document.querySelectorAll('.screen').forEach(screen => {
+    screen.classList.remove('active');
+  });
+
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+const messages = {
+  1: {
+    title: 'You matter. More than you know.',
+    text: 'Even if you cannot see it yourself every day, you have a way of making things feel different. Never underestimate how special you are.'
+  },
+  2: {
+    title: 'You deserve the softest kind of love.',
+    text: 'The kind that is patient. The kind that listens. The kind that makes you feel safe enough to be completely yourself.'
+  },
+  3: {
+    title: 'You are someone worth choosing.',
+    text: 'Not just on the best days, not just when everything is easy. You deserve to feel appreciated in the little moments, too.'
+  }
+};
+
+const discovered = new Set();
+
+function revealStar(number) {
+  const button = document.getElementById('star' + number);
+  const area = document.getElementById('message-area');
+
+  if (discovered.has(number)) {
+    showToast('You already found this little reminder. ♡');
+    return;
+  }
+
+  discovered.add(number);
+  button.classList.add('found');
+  button.querySelector('small').textContent = 'FOUND';
+
+  const data = messages[number];
+  const card = document.createElement('div');
+  card.className = 'message-card';
+
+  const symbol = document.createElement('div');
+  symbol.className = 'little-star';
+  symbol.textContent = '✦';
+
+  const title = document.createElement('p');
+  title.textContent = data.title;
+
+  const text = document.createElement('div');
+  text.className = 'sub';
+  text.textContent = data.text;
+
+  card.append(symbol, title, text);
+  area.replaceChildren(card);
+
+  document.getElementById('progress').innerHTML =
+    'Discovered: <span>' + discovered.size + '</span> of 3';
+
+  if (discovered.size === 3) {
+    document.getElementById('unlock').style.display = 'inline-block';
+    showToast('All three stars are yours. One last thing awaits. ☾');
+  }
+}
+
+let toastTimeout;
+
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.classList.add('show');
+
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 2800);
+}
+</script>
+</body>
+</html>
